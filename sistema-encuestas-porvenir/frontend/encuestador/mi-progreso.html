@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="apple-touch-icon" href="../assets/icono-192.png">
+    <title>Mi Progreso · El Porvenir Opina</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../registrar-sw.js"></script>
+</head>
+<body>
+    <header class="header-encuestador">
+        <span class="brand"><span class="marca-icono">🗳️</span> El Porvenir Opina</span>
+        <nav>
+            <a href="nueva-encuesta.html">Nueva Encuesta</a>
+            <a href="mi-progreso.html" class="activo">Mi Progreso</a>
+            <a href="estadisticas.html">Mis Estadísticas</a>
+            <a href="#" id="btn-salir" class="btn-salir">Salir</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="encabezado-seccion">
+            <div>
+                <h2>Mi Progreso</h2>
+                <p>Resumen de tu actividad de campo en El Porvenir.</p>
+            </div>
+        </div>
+
+        <div class="grid grid-3 mb-2">
+            <div class="metrica">
+                <span class="metrica-icono bg-acento">📋</span>
+                <div class="metrica-info">
+                    <div class="label">Encuestas hoy</div>
+                    <div class="valor" id="contador-hoy">0</div>
+                </div>
+            </div>
+            <div class="metrica">
+                <span class="metrica-icono bg-primario">🗂️</span>
+                <div class="metrica-info">
+                    <div class="label">Total acumulado</div>
+                    <div class="valor" id="total-general">0</div>
+                </div>
+            </div>
+            <div class="metrica">
+                <span class="metrica-icono bg-verde">📍</span>
+                <div class="metrica-info">
+                    <div class="label">Zonas visitadas</div>
+                    <div class="valor" id="zonas-visitadas">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-2">
+            <h3 class="card-titulo">🎯 Avance de meta diaria</h3>
+            <div id="meta-valor" class="texto-suave" style="margin-bottom:.6rem;">Meta de hoy: —</div>
+            <div class="barra-fondo" style="height:18px;">
+                <div class="barra-llena" id="meta-barra" style="background:linear-gradient(90deg,#2dd4bf,#fb923c);"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-2">
+            <div class="card">
+                <h3 class="card-titulo">🏘️ Cobertura por sector (hoy)</h3>
+                <div id="por-sector">
+                    <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-titulo">🕒 Últimos registros</h3>
+                <div id="lista-registros">
+                    <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-2">
+            <h3 class="card-titulo">⬆️ Subir data externa</h3>
+            <p class="texto-suave" style="font-size:.88rem;margin-bottom:1rem;">
+                Si tomaste encuestas en papel, en Excel o con un Google Form, súbelas aquí como CSV
+                y se sumarán a tu progreso y estadísticas. Cada fila se registra como una encuesta a tu nombre.
+            </p>
+            <div class="grid grid-2">
+                <div>
+                    <div class="form-group">
+                        <label for="import-origen">Origen de los datos</label>
+                        <select id="import-origen">
+                            <option value="Papel / Formato físico">Papel / Formato físico</option>
+                            <option value="Excel / Hoja de cálculo">Excel / Hoja de cálculo</option>
+                            <option value="Google Forms">Google Forms</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                    <input type="file" id="import-archivo" accept=".csv,text/csv" style="margin-bottom:1rem;">
+                    <button id="btn-importar" class="btn btn-acento" style="width:auto;">⬆️ Subir data externa</button>
+                    <p id="import-resultado" style="margin-top:.8rem;font-size:.9rem;"></p>
+                </div>
+                <details style="font-size:.88rem;">
+                    <summary style="font-weight:700;cursor:pointer;margin-bottom:.6rem;">📄 ¿Cómo preparo el CSV?</summary>
+                    <ul style="padding-left:1.2rem;line-height:1.7;color:var(--texto-suave);">
+                        <li><strong>Excel:</strong> guarda la hoja como CSV UTF-8 (Archivo → Guardar como → CSV UTF-8).</li>
+                        <li><strong>Google Forms:</strong> respuestas → Hojas de cálculo → Archivo → Descargar → CSV.</li>
+                        <li><strong>Papel:</strong> digiten los datos en Excel con las mismas columnas y guarden como CSV.</li>
+                        <li>La primera fila debe tener los encabezados (en español o inglés).</li>
+                        <li>Columnas útiles: <code>sector</code>, <code>sexo</code>, <code>grupoEtario</code>, <code>candidato</code>, <code>decision</code>, <code>prioridad</code>, <code>cualidad</code>, <code>votoEspontaneo</code>, <code>fecha</code>, <code>id</code> (para evitar duplicados al subir de nuevo).</li>
+                    </ul>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./mi-progreso.js"></script>
+</body>
+</html>

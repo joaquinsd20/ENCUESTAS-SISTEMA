@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="apple-touch-icon" href="../assets/icono-192.png">
+    <title>Dashboard · El Porvenir Opina</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../registrar-sw.js"></script>
+</head>
+<body>
+    <div class="layout-admin">
+        <div class="cerrar-sidebar" id="cerrar-sidebar"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="brand"><span class="marca-icono">🗳️</span> El Porvenir Opina</div>
+            <nav>
+                <a href="dashboard.html" class="activo">📊 Dashboard</a>
+                <a href="estadisticas.html">📈 Estadísticas</a>
+                <a href="directorio.html">👥 Directorio</a>
+                <a href="#" id="btn-salir" class="btn-salir">🚪 Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <div class="contenido-admin">
+            <div class="topbar">
+                <button class="btn-ico menu-toggle" id="btn-menu">☰</button>
+                <h1>Panel de Control</h1>
+                <div class="usuario-box">
+                    <span class="avatar" id="avatar-admin">A</span>
+                    <span id="nombre-admin">—</span>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="encabezado-seccion">
+                    <div>
+                        <h2>Monitoreo en tiempo real</h2>
+                        <p>Actividad de campo y tendencias electorales en El Porvenir.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-4 mb-2">
+                    <div class="metrica">
+                        <span class="metrica-icono bg-primario">🗂️</span>
+                        <div class="metrica-info">
+                            <div class="label">Total encuestas</div>
+                            <div class="valor" id="total-encuestas">—</div>
+                        </div>
+                    </div>
+                    <div class="metrica">
+                        <span class="metrica-icono bg-acento">📋</span>
+                        <div class="metrica-info">
+                            <div class="label">Encuestas hoy</div>
+                            <div class="valor" id="encuestas-hoy">—</div>
+                        </div>
+                    </div>
+                    <div class="metrica">
+                        <span class="metrica-icono bg-verde">🧍</span>
+                        <div class="metrica-info">
+                            <div class="label">Encuestadores activos hoy</div>
+                            <div class="valor" id="encuestadores-hoy">—</div>
+                        </div>
+                    </div>
+                    <div class="metrica">
+                        <span class="metrica-icono bg-ambar">📍</span>
+                        <div class="metrica-info">
+                            <div class="label">Zonas cubiertas</div>
+                            <div class="valor" id="zonas-cubiertas">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="card">
+                        <h3 class="card-titulo">🗳️ Intención de voto general</h3>
+                        <div id="top-candidatos">
+                            <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-titulo">🏘️ Zonas con mayor cobertura</h3>
+                        <div id="top-zonas">
+                            <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <h3 class="card-titulo">🕒 Últimas encuestas registradas</h3>
+                    <div id="ultimas-encuestas">
+                        <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./dashboard.js"></script>
+</body>
+</html>

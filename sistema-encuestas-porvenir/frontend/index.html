@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="apple-touch-icon" href="./assets/icono-192.png">
+    <title>El Porvenir Opina · Encuestas</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="registrar-sw.js"></script>
+</head>
+<body>
+    <div class="pagina-inicio">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+
+        <div class="inicio-card">
+            <div class="inicio-logo anim-1">🗳️</div>
+            <h2 class="anim-2">El Porvenir Opina</h2>
+            <p class="sub anim-2">Encuestas de opinión ciudadana<br>Distrito de El Porvenir · Trujillo</p>
+
+            <div class="rol-opciones anim-3">
+                <a href="login.html?rol=admin" class="rol-card">
+                    <span class="rol-ico bg-acento">🧑‍💼</span>
+                    <span>
+                        <span class="rol-nombre" style="display:block;">Jefatura</span>
+                        <span class="rol-desc">Administrador · supervisión y resultados en tiempo real</span>
+                    </span>
+                </a>
+                <a href="login.html?rol=encuestador" class="rol-card">
+                    <span class="rol-ico bg-primario">📋</span>
+                    <span>
+                        <span class="rol-nombre" style="display:block;">Encuestador</span>
+                        <span class="rol-desc">Personal de campo · registro de encuestas</span>
+                    </span>
+                </a>
+            </div>
+
+            <p class="login-enlace anim-4" style="margin-top:1.6rem;">
+                <a href="#">Encuestas confidenciales · El Porvenir Opina</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Brillo orgánico que sigue al cursor sobre cada tarjeta de rol
+        document.querySelectorAll(".rol-card").forEach((card) => {
+            card.addEventListener("mousemove", (e) => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty("--x", ((e.clientX - r.left) / r.width) * 100 + "%");
+            });
+        });
+    </script>
+</body>
+</html>

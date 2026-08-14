@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="apple-touch-icon" href="../assets/icono-192.png">
+    <title>Estadísticas · El Porvenir Opina</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../registrar-sw.js"></script>
+</head>
+<body>
+    <div class="layout-admin">
+        <div class="cerrar-sidebar" id="cerrar-sidebar"></div>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="brand"><span class="marca-icono">🗳️</span> El Porvenir Opina</div>
+            <nav>
+                <a href="dashboard.html">📊 Dashboard</a>
+                <a href="estadisticas.html" class="activo">📈 Estadísticas</a>
+                <a href="directorio.html">👥 Directorio</a>
+                <a href="#" id="btn-salir" class="btn-salir">🚪 Cerrar sesión</a>
+            </nav>
+        </aside>
+
+        <div class="contenido-admin">
+            <div class="topbar">
+                <button class="btn-ico menu-toggle" id="btn-menu">☰</button>
+                <h1>Estadísticas y Resultados</h1>
+                <div class="usuario-box">
+                    <span class="avatar" id="avatar-admin">A</span>
+                    <span id="nombre-admin">—</span>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="reporte-encabezado" id="reporte-encabezado">
+                    <h2>El Porvenir Opina</h2>
+                    <p>Reporte de intención de voto · <span id="reporte-fecha"></span></p>
+                    <hr>
+                </div>
+
+                <div class="encabezado-seccion no-imprimir">
+                    <div>
+                        <h2>Intención de voto</h2>
+                        <p>Resultados actualizados en tiempo real según los registros de campo.</p>
+                    </div>
+                    <div class="filtros">
+                        <label for="filtro-sector" class="texto-suave" style="font-size:.9rem;">Filtrar por sector:</label>
+                        <select id="filtro-sector">
+                            <option value="">Todos los sectores</option>
+                        </select>
+                        <button id="btn-imprimir" class="btn btn-sutil">🖨️ Imprimir reporte</button>
+                        <button id="btn-exportar" class="btn btn-primario no-imprimir" style="width:auto;">📊 Exportar a Excel</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-4 mb-2">
+                    <div class="metrica">
+                        <span class="metrica-icono bg-primario">🗂️</span>
+                        <div class="metrica-info">
+                            <div class="label">Encuestas analizadas</div>
+                            <div class="valor" id="total-encuestas">—</div>
+                        </div>
+                    </div>
+                    <div class="metrica">
+                        <span class="metrica-icono bg-acento">✅</span>
+                        <div class="metrica-info">
+                            <div class="label">Voto definido</div>
+                            <div class="valor" id="voto-definido">—</div>
+                        </div>
+                    </div>
+                    <div class="metrica">
+                        <span class="metrica-icono bg-ambar">❓</span>
+                        <div class="metrica-info">
+                            <div class="label">Indecisos + blanco/nulo</div>
+                            <div class="valor" id="no-definido">—</div>
+                        </div>
+                    </div>
+                    <div class="metrica">
+                        <span class="metrica-icono bg-verde">👑</span>
+                        <div class="metrica-info">
+                            <div class="label">Líder actual</div>
+                            <div class="valor" id="lider" style="font-size:1.1rem;line-height:1.3;">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2 mb-2">
+                    <div class="card">
+                        <h3 class="card-titulo">🍩 Distribución de la intención de voto</h3>
+                        <div style="position:relative;height:320px;">
+                            <canvas id="grafico-torta"></canvas>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-titulo">📊 Comparativo de candidatos</h3>
+                        <div style="position:relative;height:320px;">
+                            <canvas id="grafico-barras"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="card">
+                        <h3 class="card-titulo">📍 Resultados por sector</h3>
+                        <div id="tabla-sector">
+                            <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-titulo">👥 Rendimiento por encuestador</h3>
+                        <div id="tabla-encuestador">
+                            <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <h3 class="card-titulo">🧑‍🤝‍🧑 Perfil de los encuestados</h3>
+                    <p class="texto-suave" style="font-size:.85rem;margin-bottom:1rem;" id="perfil-descripcion">
+                        Se actualiza según el filtro de sector seleccionado.
+                    </p>
+                    <div id="perfil-demo">
+                        <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <h3 class="card-titulo">⬆️ Importar datos externos</h3>
+                    <p class="texto-suave" style="font-size:.88rem;margin-bottom:1rem;">
+                        Sube un archivo CSV con encuestas tomadas en papel, en Excel o descargadas de un Google Form.
+                        Cada fila se registrará como una encuesta.
+                    </p>
+                    <div class="grid grid-2">
+                        <div>
+                            <div class="form-group">
+                                <label for="import-encuestador">Encuestador asignado (si el CSV no trae columna)</label>
+                                <input type="text" id="import-encuestador" placeholder="Ej: jefe@porvenir.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="import-origen">Origen de los datos</label>
+                                <select id="import-origen">
+                                    <option value="Papel / Formato físico">Papel / Formato físico</option>
+                                    <option value="Excel / Hoja de cálculo">Excel / Hoja de cálculo</option>
+                                    <option value="Google Forms">Google Forms</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                            <input type="file" id="import-archivo" accept=".csv,text/csv" style="margin-bottom:1rem;">
+                            <button id="btn-importar" class="btn btn-acento" style="width:auto;">⬆️ Importar CSV</button>
+                            <p id="import-resultado" style="margin-top:.8rem;font-size:.9rem;"></p>
+                        </div>
+                        <details style="font-size:.88rem;">
+                            <summary style="font-weight:700;cursor:pointer;margin-bottom:.6rem;">📄 ¿Cómo preparo el CSV? (Google Forms, Excel, papel)</summary>
+                            <ul style="padding-left:1.2rem;line-height:1.7;color:var(--texto-suave);">
+                                <li><strong>Excel:</strong> guarda la hoja como CSV UTF-8 (Archivo → Guardar como → CSV UTF-8).</li>
+                                <li><strong>Google Forms:</strong> abre las respuestas en Hojas de cálculo → Archivo → Descargar → CSV.</li>
+                                <li><strong>Papel:</strong> digiten los datos en Excel con las mismas columnas y guarden como CSV.</li>
+                                <li>La primera fila debe tener los encabezados. Puedes usar nombres en español o en inglés.</li>
+                                <li>Columnas opcionales: <code>fecha</code>, <code>encuestador</code>, <code>id</code> (para evitar duplicados al volver a importar).</li>
+                                <li>Ejemplo de encabezados: <code>sector,sexo,grupoEtario,candidatoFijo,decision,prioridad,cualidad,votoEspontaneo,fecha,encuestador</code></li>
+                            </ul>
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+    <script type="module" src="./estadisticas.js"></script>
+</body>
+</html>

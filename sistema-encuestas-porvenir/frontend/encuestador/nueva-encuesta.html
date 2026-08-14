@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0f766e">
+    <link rel="manifest" href="../manifest.webmanifest">
+    <link rel="apple-touch-icon" href="../assets/icono-192.png">
+    <title>Nueva Encuesta · El Porvenir Opina</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="../registrar-sw.js"></script>
+</head>
+<body>
+    <header class="header-encuestador">
+        <span class="brand"><span class="marca-icono">🗳️</span> El Porvenir Opina</span>
+        <nav>
+            <a href="nueva-encuesta.html" class="activo">Nueva Encuesta</a>
+            <a href="mi-progreso.html">Mi Progreso</a>
+            <a href="estadisticas.html">Mis Estadísticas</a>
+            <a href="#" id="btn-salir" class="btn-salir">Salir</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <!-- Formulario de la ficha de campo -->
+            <form id="form-encuesta" class="card-form">
+                <input type="hidden" id="idEncuestaEditando">
+
+                <div id="aviso-edicion" class="aviso-edicion" style="display:none;">
+                    <span>✏️ Estás editando una encuesta guardada.</span>
+                    <a href="#" id="cancelar-edicion">Cancelar</a>
+                </div>
+
+                <h3 id="titulo-formulario"><span class="paso">1</span><span id="titulo-texto">Ficha de Campo</span></h3>
+
+                <div class="form-group">
+                    <label for="sector">Sector / Zona de residencia <span class="requerido">*</span></label>
+                    <select id="sector" required>
+                        <option value="" disabled selected>Seleccione un sector</option>
+                        <option value="El Porvenir Central">El Porvenir Central</option>
+                        <option value="Mampuesto">Mampuesto</option>
+                        <option value="Río Seco">Río Seco</option>
+                        <option value="Kumamoto">Kumamoto</option>
+                        <option value="Las ánimas">Las ánimas</option>
+                        <option value="El presidio">El presidio</option>
+                        <option value="El mirador">El mirador</option>
+                        <option value="Miguel Grau">Miguel Grau</option>
+                        <option value="Gran Chimú">Gran Chimú</option>
+                        <option value="Víctor Raul Haya de la Torre">Víctor Raul Haya de la Torre</option>
+                        <option value="Túpac Amaru I, II, III">Túpac Amaru I, II, III</option>
+                        <option value="Valle Sol I, II, III">Valle Sol I, II, III</option>
+                        <option value="Los libertadores">Los libertadores</option>
+                        <option value="Nuevo Porvenir">Nuevo Porvenir</option>
+                        <option value="Luis Felipe de las Casas">Luis Felipe de las Casas</option>
+                        <option value="Otro">Otro sector</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="grupo-otro-sector" style="display:none;">
+                    <label for="otroSector">Indique el nombre del sector <span class="requerido">*</span></label>
+                    <input type="text" id="otroSector" placeholder="Escriba el nombre del sector">
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="form-group">
+                        <label for="sexo">Sexo <span class="requerido">*</span></label>
+                        <select id="sexo" required>
+                            <option value="" disabled selected>Seleccione</option>
+                            <option value="Hombre">Hombre</option>
+                            <option value="Mujer">Mujer</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="grupoEtario">Grupo Etario <span class="requerido">*</span></label>
+                        <select id="grupoEtario" required>
+                            <option value="" disabled selected>Seleccione rango</option>
+                            <option value="18 - 24 años">18 - 24 años</option>
+                            <option value="25 - 39 años">25 - 39 años</option>
+                            <option value="40 - 54 años">40 - 54 años</option>
+                            <option value="55 a más">55 a más</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3 style="margin-top:1.5rem;"><span class="paso">2</span> Intención de Voto</h3>
+
+                <div class="form-group">
+                    <label>Pregunta 2 · Si las elecciones municipales para elegir al próximo alcalde de El Porvenir fueran este domingo, ¿por quién votaría usted? <span class="requerido">*</span></label>
+                    <p class="form-note">Toque la foto del candidato elegido.</p>
+                    <div id="cartilla" class="cartilla" role="radiogroup" aria-label="Candidatos de la cartilla"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Pregunta 3 · Observe esta cartilla con los partidos inscritos. Si las elecciones fueran mañana, ¿por cuál de ellos votaría usted para la Alcaldía de El Porvenir? <span class="requerido">*</span></label>
+                    <p class="form-note">Toque el logo del partido elegido.</p>
+                    <div id="cartilla-partidos" class="cartilla cartilla-partido" role="radiogroup" aria-label="Partidos de la cartilla"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="decision">Pregunta 4 · ¿Qué tan decidido está su voto? <span class="requerido">*</span></label>
+                    <select id="decision" required>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="Totalmente decidido">Totalmente decidido (Ya no cambiará)</option>
+                        <option value="Podría cambiar de opinión">Podría cambiar de opinión (según propuestas/campaña)</option>
+                        <option value="Aún no lo ha decidido">Aún no lo ha decidido (Podría cambiar a última hora)</option>
+                    </select>
+                </div>
+
+                <h3 style="margin-top:1.5rem;"><span class="paso">3</span> Temas de Campaña</h3>
+
+                <div class="form-group">
+                    <label for="prioridad">Pregunta 5 · Prioridad inmediata del próximo alcalde <span class="requerido">*</span></label>
+                    <select id="prioridad" required>
+                        <option value="" disabled selected>Seleccione prioridad</option>
+                        <option value="Lucha contra extorsiones e inseguridad">Lucha contra las extorsiones, sicariato e inseguridad ciudadana</option>
+                        <option value="Reactivación económica y calzado">Reactivación económica y formalización del sector calzado</option>
+                        <option value="Mantenimiento de pistas y veredas">Mantenimiento y pavimentación de pistas y veredas</option>
+                        <option value="Mejora de agua potable y alcantarillado">Mejora del servicio de agua potable y alcantarillado</option>
+                        <option value="Limpieza pública y residuos sólidos">Limpieza pública y gestión de residuos sólidos</option>
+                        <option value="Transparencia y lucha contra corrupción">Transparencia y lucha contra la corrupción municipal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="cualidad">Pregunta 6 · Principal cualidad del próximo alcalde <span class="requerido">*</span></label>
+                    <select id="cualidad" required>
+                        <option value="" disabled selected>Seleccione cualidad</option>
+                        <option value="Capacidad de gestión">Capacidad de gestión y experiencia administrativa</option>
+                        <option value="Honestidad">Honestidad / Que no sea corrupto</option>
+                        <option value="Firmeza contra la delincuencia">Firmeza para combatir la delincuencia y extorsiones</option>
+                        <option value="Compromiso con emprendedores">Compromiso con el emprendedor y el sector industrial del calzado</option>
+                        <option value="Cercanía con el pueblo">Cercanía con el pueblo / Que viva en el distrito</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-verde">Guardar Encuesta</button>
+            </form>
+
+            <!-- Progreso del día -->
+            <aside class="card-progreso">
+                <h3 style="margin-bottom:1rem;">Mi Progreso de Hoy</h3>
+                <div class="contador-box">
+                    <div class="numero" id="total-registros">0</div>
+                    <div class="etiqueta">Encuestas registradas</div>
+                </div>
+                <div class="meta-dia">
+                    <div id="meta-valor">Meta de hoy: —</div>
+                    <div class="barra-fondo meta-barra-fondo">
+                        <div class="barra-llena" id="meta-barra" style="background:linear-gradient(90deg,#2dd4bf,#fb923c);"></div>
+                    </div>
+                </div>
+                <div class="mini-stats">
+                    <div class="fila"><span>Total acumulado</span><strong id="total-acumulado" class="mono">0</strong></div>
+                    <div class="fila"><span>Última encuesta</span><strong id="ultima-encuesta" class="mono">—</strong></div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script type="module" src="./encuesta.js"></script>
+</body>
+</html>

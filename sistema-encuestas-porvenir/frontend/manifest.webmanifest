@@ -1,0 +1,32 @@
+{
+  "name": "El Porvenir Opina",
+  "short_name": "El Porvenir",
+  "description": "Encuestas de opinión ciudadana del distrito de El Porvenir, Trujillo. Registro de campo y resultados en tiempo real.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f6f4ef",
+  "theme_color": "#0f766e",
+  "lang": "es-PE",
+  "icons": [
+    {
+      "src": "./assets/icono-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icono-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
