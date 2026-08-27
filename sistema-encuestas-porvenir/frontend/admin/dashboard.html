@@ -6,8 +6,9 @@
     <meta name="theme-color" content="#0f766e">
     <link rel="manifest" href="../manifest.webmanifest">
     <link rel="apple-touch-icon" href="../assets/icono-192.png">
+    <link rel="icon" type="image/png" href="../assets/icono-192.png">
     <title>Dashboard · El Porvenir Opina</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=7">
     <script src="../registrar-sw.js"></script>
 </head>
 <body>
@@ -39,6 +40,10 @@
                     <div>
                         <h2>Monitoreo en tiempo real</h2>
                         <p>Actividad de campo y tendencias electorales en El Porvenir.</p>
+                    </div>
+                    <div class="filtros">
+                        <button id="btn-descargar-csv" class="btn btn-sutil">⬇️ Descargar CSV</button>
+                        <button id="btn-descargar-excel" class="btn btn-primario" style="width:auto;">⬇️ Descargar Excel</button>
                     </div>
                 </div>
 
@@ -90,6 +95,13 @@
                 </div>
 
                 <div class="card mt-2">
+                    <h3 class="card-titulo">🎯 Rendimiento por encuestador (hoy vs meta)</h3>
+                    <div id="rendimiento-equipo">
+                        <div class="cargando"><div class="spinner"></div>Cargando...</div>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
                     <h3 class="card-titulo">🕒 Últimas encuestas registradas</h3>
                     <div id="ultimas-encuestas">
                         <div class="cargando"><div class="spinner"></div>Cargando...</div>
@@ -99,6 +111,8 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
     <script type="module" src="./dashboard.js"></script>
 </body>
 </html>

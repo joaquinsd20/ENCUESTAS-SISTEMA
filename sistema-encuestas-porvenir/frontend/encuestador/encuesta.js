@@ -196,6 +196,8 @@ async function cargarProgreso() {
         metaBarra.textContent = meta > 0 ? `${hoy} / ${meta}` : "";
         if (meta > 0 && hoy >= meta) {
             metaSpan.textContent += " · ¡Meta cumplida! 🎉";
+        } else if (meta > 0) {
+            metaSpan.textContent += ` · faltan ${meta - hoy}`;
         }
     } catch (error) {
         console.error("Error al leer la meta:", error);
@@ -246,7 +248,6 @@ document.getElementById("form-encuesta").addEventListener("submit", async (e) =>
         mostrarToast(mensajeExito, "exito");
         document.getElementById("form-encuesta").reset();
         grupoOtro.style.display = "none";
-        reiniciarUbicacion();
         cargarProgreso();
     } catch (error) {
         console.error("Error al guardar:", error);

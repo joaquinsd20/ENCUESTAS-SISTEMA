@@ -6,8 +6,9 @@
     <meta name="theme-color" content="#0f766e">
     <link rel="manifest" href="../manifest.webmanifest">
     <link rel="apple-touch-icon" href="../assets/icono-192.png">
+    <link rel="icon" type="image/png" href="../assets/icono-192.png">
     <title>Estadísticas · El Porvenir Opina</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../style.css?v=7">
     <script src="../registrar-sw.js"></script>
 </head>
 <body>
@@ -52,6 +53,7 @@
                             <option value="">Todos los sectores</option>
                         </select>
                         <button id="btn-imprimir" class="btn btn-sutil">🖨️ Imprimir reporte</button>
+                        <button id="btn-exportar-csv" class="btn btn-sutil no-imprimir">⬇️ CSV</button>
                         <button id="btn-exportar" class="btn btn-primario no-imprimir" style="width:auto;">📊 Exportar a Excel</button>
                     </div>
                 </div>
@@ -102,18 +104,27 @@
                     </div>
                 </div>
 
-                <div class="grid grid-2">
+                <div class="card mb-2">
+                    <h3 class="card-titulo">🗺️ Mapa de cobertura por sector</h3>
+                    <p class="texto-suave" style="font-size:.85rem;margin-bottom:.8rem;">
+                        El tamaño del círculo indica el número de encuestas; el color, la intención de voto líder del sector.
+                    </p>
+                    <div id="mapa-sector" style="height:520px;border-radius:14px;overflow:hidden;"></div>
+                </div>
+
+                <div class="grid grid-2 mb-2">
                     <div class="card">
                         <h3 class="card-titulo">📍 Resultados por sector</h3>
                         <div id="tabla-sector">
                             <div class="cargando"><div class="spinner"></div>Cargando...</div>
                         </div>
                     </div>
-                    <div class="card">
-                        <h3 class="card-titulo">👥 Rendimiento por encuestador</h3>
-                        <div id="tabla-encuestador">
-                            <div class="cargando"><div class="spinner"></div>Cargando...</div>
-                        </div>
+                </div>
+
+                <div class="card mt-2">
+                    <h3 class="card-titulo">👥 Rendimiento por encuestador</h3>
+                    <div id="tabla-encuestador">
+                        <div class="cargando"><div class="spinner"></div>Cargando...</div>
                     </div>
                 </div>
 
@@ -171,6 +182,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script type="module" src="./estadisticas.js"></script>
 </body>
 </html>

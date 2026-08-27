@@ -1,0 +1,49 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Un usuario es administrador si su perfil en "usuarios" tiene rol == "admin".
+    function esAdmin() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data.rol == "admin";
+    }
+
+    // ---------------------------------------------------------------
+    // Perfiles de usuario (colección "usuarios")
+    // - Cualquiera autenticado crea SOLO su propio perfil, y solo como encuestador.
+    // - Cada usuario lee/actualiza su propio perfil.
+    // - Solo los administradores pueden leer todos y editar metas/roles.
+    // ---------------------------------------------------------------
+    match /usuarios/{uid} {
+      allow create: if request.auth != null
+                    && request.auth.uid == uid
+                    && request.resource.data.rol == "encuestador";
+
+      allow read: if esAdmin()
+                  || (request.auth != null && request.auth.uid == uid);
+
+      allow update: if esAdmin()
+                    || (request.auth != null && request.auth.uid == uid);
+
+      allow delete: if esAdmin();
+    }
+
+    // ---------------------------------------------------------------
+    // Encuestas (colección "encuestas")
+    // - Encuestador: crea sus propias encuestas y solo lee/edita las suyas.
+    // - Administrador: acceso total (lectura, edición y borrado).
+    // ---------------------------------------------------------------
+    match /encuestas/{encuestaId} {
+      allow read: if esAdmin()
+                  || (request.auth != null && resource.data.encuestador == request.auth.token.email);
+
+      allow create: if esAdmin()
+                    || (request.auth != null && request.resource.data.encuestador == request.auth.token.email);
+
+      allow update: if esAdmin()
+                    || (request.auth != null && resource.data.encuestador == request.auth.token.email);
+
+      allow delete: if esAdmin();
+    }
+  }
+}

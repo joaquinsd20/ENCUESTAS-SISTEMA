@@ -1,6 +1,6 @@
 // El Porvenir Opina — Service Worker (PWA)
 // Guarda la aplicación en el dispositivo para funcionar sin conexión.
-const CACHE = "elporvenir-opina-v3";
+const CACHE = "elporvenir-opina-v6";
 
 const PRECACHE = [
   "./",
@@ -12,10 +12,13 @@ const PRECACHE = [
   "./ui.js",
   "./firebase-config.js",
   "./candidatos.js",
+  "./sectores.js",
+  "./exportar-datos.js",
   "./csv-import.js",
   "./manifest.webmanifest",
   "./assets/icono-192.png",
   "./assets/icono-512.png",
+  "./assets/ingreso-al-distrito-el-porvenir-de-trujllo-com.jpg",
   "./encuestador/nueva-encuesta.html",
   "./encuestador/encuesta.js",
   "./encuestador/mi-progreso.html",
@@ -104,7 +107,8 @@ self.addEventListener("fetch", (event) => {
         const cacheable =
           respuesta.ok &&
           (url.hostname.includes("gstatic.com") ||
-            url.hostname.includes("jsdelivr.net"));
+            url.hostname.includes("jsdelivr.net") ||
+            url.hostname.includes("unpkg.com"));
         if (cacheable) {
           const copia = respuesta.clone();
           caches.open(CACHE).then((cache) => cache.put(request, copia));

@@ -168,9 +168,12 @@ async function cargarDatos() {
     if (metaDiaria > 0) {
         const pct = Math.min(100, Math.round((hoy / metaDiaria) * 100));
         metaBarra.style.width = pct + "%";
-        metaBarra.textContent = `${hoy} / ${metaDiaria}`;
+        metaBarra.textContent = `${hoy} / ${metaDiaria} · ${pct}%`;
+        const falta = Math.max(0, metaDiaria - hoy);
         metaValor.innerHTML = `Meta de hoy: <strong>${metaDiaria} encuestas</strong> · llevas <strong>${hoy}</strong>` +
-            (hoy >= metaDiaria ? ' <span class="badge badge-verde">¡Meta cumplida! 🎉</span>' : "");
+            (hoy >= metaDiaria
+                ? ' <span class="badge badge-verde">¡Meta cumplida! 🎉</span>'
+                : ` · te faltan <strong>${falta}</strong> para lograrla`);
     } else {
         metaBarra.style.width = "0%";
         metaValor.innerHTML = "Meta de hoy: <em>no asignada. Tu jefatura puede definirla.</em>";

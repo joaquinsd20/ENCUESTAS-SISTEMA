@@ -94,13 +94,21 @@ async function cargarDirectorio() {
                             <th>Zona predominante</th>
                             <th>Meta diaria</th>
                             <th>Encuestas hoy</th>
+                            <th>Cumplimiento</th>
                             <th>Total encuestas</th>
                             <th>Última actividad</th>
                             <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
-                        ${filas.map((f) => `
+                        ${filas.map((f) => {
+                            const pct = f.metaDiaria > 0 ? Math.round((f.hoy / f.metaDiaria) * 100) : 0;
+                            const badge = f.metaDiaria > 0 && f.hoy >= f.metaDiaria
+                                ? '<span class="badge badge-verde">● Cumplida</span>'
+                                : f.metaDiaria > 0 && pct >= 50
+                                    ? '<span class="badge badge-ambar">◐ En camino</span>'
+                                    : '<span class="badge badge-rojo">○ Baja</span>';
+                            return `
                             <tr>
                                 <td>
                                     <strong>${escaparHTML(f.correo)}</strong>
@@ -112,10 +120,11 @@ async function cargarDirectorio() {
                                         title="Define la meta diaria de encuestas">
                                 </td>
                                 <td class="mono">${f.hoy}</td>
+                                <td>${f.metaDiaria > 0 ? `${pct}% · ${badge}` : '<span class="texto-suave">sin meta</span>'}</td>
                                 <td class="mono">${f.total}</td>
                                 <td class="mono">${f.ultima ? f.ultima.toLocaleTimeString("es-PE", { hour: "2-digit", minute: "2-digit" }) : "—"}</td>
                                 <td>${f.activo ? '<span class="badge badge-verde">● En campo</span>' : '<span class="badge badge-ambar">○ Inactivo</span>'}</td>
-                            </tr>`).join("")}
+                            </tr>`;}).join("")}
                     </tbody>
                 </table>
             </div>`;

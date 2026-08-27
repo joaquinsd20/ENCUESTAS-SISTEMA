@@ -482,11 +482,22 @@ table.tabla tbody td.celda-lider { border-bottom-color: #c7e6e3; }
   justify-content: center;
   padding: 1.5rem;
   overflow: hidden;
+  background: linear-gradient(165deg, #101715 0%, #14201e 50%, #201814 100%);
+}
+
+/* Fondo con foto del distrito difuminada */
+.pagina-inicio::before,
+.pagina-login::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background:
-    radial-gradient(1100px 750px at 12% -10%, rgba(45, 212, 191, .34), transparent 60%),
-    radial-gradient(950px 700px at 108% 12%, rgba(234, 88, 12, .32), transparent 55%),
-    radial-gradient(900px 850px at 50% 125%, rgba(13, 148, 136, .30), transparent 62%),
-    linear-gradient(165deg, #0c3a35 0%, #0f766e 50%, #9a3412 140%);
+    linear-gradient(165deg, rgba(8, 25, 23, .38), rgba(8, 25, 23, .20)),
+    url("../assets/ingreso-al-distrito-el-porvenir-de-trujllo-com.jpg") center / cover no-repeat;
+  filter: blur(5px) brightness(.95) saturate(1.05);
+  transform: scale(1.05);
+  pointer-events: none;
 }
 
 /* Blobs orgánicos que flotan lentamente */
@@ -555,6 +566,17 @@ table.tabla tbody td.celda-lider { border-bottom-color: #c7e6e3; }
   align-items: center;
   justify-content: center;
   box-shadow: 0 16px 34px rgba(194, 65, 12, .4);
+  animation: flotar-logo 5s ease-in-out infinite;
+}
+
+.inicio-logo-img {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 1.2rem;
+  border-radius: 24px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 16px 34px rgba(8, 25, 23, .38);
   animation: flotar-logo 5s ease-in-out infinite;
 }
 
